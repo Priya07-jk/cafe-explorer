@@ -15,11 +15,11 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 - Google Places API  
 
 ## 📸 Screenshots
-(Add screenshots/GIFs here)
+
 
 
 ## 🌐 Live Demo
-👉 [Try it here](your-deployed-link)
+
 
 
 
