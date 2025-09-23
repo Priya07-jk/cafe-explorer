@@ -1,4 +1,4 @@
- /* Reset and base styles */
+  /* Reset and base styles */
 body {
     background-color: #ffb6c1; /* ✅ FIXED baby pink */
     font-family: Arial, sans-serif;
@@ -55,4 +55,53 @@ h1 {
 .favorite-btn.active {
     color: #ff4757;
 }
+/* ===== SWIPE FEATURES ===== */
+.cards-container {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 500px;
+    margin: 20px auto;
+}
 
+.cards {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.swipe-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.6s, opacity 0.6s;
+    cursor: grab;
+}
+
+.swipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.swipe-left {
+    transform: translateX(-150%) rotate(-30deg);
+    opacity: 0;
+}
+
+.swipe-right {
+    transform: translateX(150%) rotate(30deg);
+    opacity: 0;
+}
+
+/* Keep your existing list as fallback */
+#cafeList {
+    display: none; /* Hide old list initially */
+}
