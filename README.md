@@ -26,5 +26,5 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 ## ⚙️ Setup Instructions
 1. Clone the repo:
    ```bash
-   git clone https://github.com/your-username/cafe-explorer.git
+   https://github.com/Priya07-jk/cafe-explorer.git
 
