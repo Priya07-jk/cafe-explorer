@@ -25,8 +25,7 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 
 
 ## 🌐 Live Demo
-
-
+ https://priya07-jk.github.io/cafe-explorer/
 
 
 ## ⚙️ Setup Instructions
