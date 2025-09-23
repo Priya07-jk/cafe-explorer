@@ -1,6 +1,7 @@
 # ☕ Cafe Explorer
 
-A simple web app to explore nearby cafes using **Google Maps API**.  
+A simple web app to explore nearby cafes using Leaflet.js and OpenStreetMap
+ 
 Built with **HTML, CSS, JavaScript** — no frameworks.
 
 ## 🚀 Features
