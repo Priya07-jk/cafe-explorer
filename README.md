@@ -8,7 +8,7 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 - **Interactive Map** - Leaflet.js with OpenStreetMap tiles  
 - **Geolocation** - "Find cafes near me" button
 - **Favorites System** - Heart icons with localStorage persistence
-- **Responsive Design** - Works on desktop and mobile
+-  Tinder-like swipe interface for cafes
 - **Clean UI** - Modern design with smooth animations
 
 ## 🛠️ Tech Stack
