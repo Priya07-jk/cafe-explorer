@@ -17,6 +17,7 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 
 ## 📸 Screenshots
 <img width="1186" height="524" alt="image" src="https://github.com/user-attachments/assets/537f34ca-f321-4687-aaf0-ddc1c1fe237d" /> {this screenshot was just before adding maps}
+<img width="1814" height="896" alt="image" src="https://github.com/user-attachments/assets/5345c8d7-4981-4012-a995-5cf82764faf3" /> { after adding location}
 
 
 
