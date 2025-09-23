@@ -28,6 +28,36 @@ searchBar.addEventListener('input', function() {
     }
 });
 
+
+const nearMeBtn = document.getElementById('nearMeBtn');
+
+nearMeBtn.addEventListener('click', function() {
+    console.log('Geolocation started...');
+    
+    if (!navigator.geolocation) {
+        alert('Geolocation not supported');
+        return;
+    }
+    
+    // Simple version - remove loading states
+    navigator.geolocation.getCurrentPosition(
+        function(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
+            console.log('Success! Lat:', lat, 'Lng:', lng);
+            alert(`Location found! Lat: ${lat}, Lng: ${lng}`);
+            
+            // Center map (make sure 'map' variable is accessible)
+            if (map) {
+                map.setView([lat, lng], 15);
+            }
+        },
+        function(error) {
+            console.log('Error:', error);
+            alert('Location error: ' + error.message);
+        }
+    );
+});
 // Initialize Leaflet Map
 function initMap() {
     let map = L.map('map').setView([40.7128, -74.0060], 13);
