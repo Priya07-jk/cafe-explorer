@@ -3,12 +3,13 @@
 A simple web app to explore nearby cafes using Leaflet.js and OpenStreetMap
  
 Built with **HTML, CSS, JavaScript** — no frameworks.
-
 ## 🚀 Features
-- 🔎 Search for cafes in any location.
-- 📍 Interactive map with cafe markers.
-- ⭐ View cafe details (name, rating, address).
-- 📱 Responsive design.
+- **Real-time Search** - Instant cafe filtering as you type
+- **Interactive Map** - Leaflet.js with OpenStreetMap tiles  
+- **Geolocation** - "Find cafes near me" button
+- **Favorites System** - Heart icons with localStorage persistence
+- **Responsive Design** - Works on desktop and mobile
+- **Clean UI** - Modern design with smooth animations
 
 ## 🛠️ Tech Stack
 - HTML, CSS, JavaScript  
@@ -24,8 +25,7 @@ Built with **HTML, CSS, JavaScript** — no frameworks.
 
 
 ## 🌐 Live Demo
-
-
+ https://priya07-jk.github.io/cafe-explorer/
 
 
 ## ⚙️ Setup Instructions
