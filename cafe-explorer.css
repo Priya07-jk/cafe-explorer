@@ -1,77 +1,58 @@
- HEAD
-/* Test styling */
+ /* Reset and base styles */
 body {
-  background-color: #ffcce7; /* baby pink */
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 20px;
+    background-color: #ffb6c1; /* ✅ FIXED baby pink */
+    font-family: Arial, sans-serif;
+    text-align: center; /* ✅ FIXED property name */
+    margin: 20px;
 }
 
 h1 {
-  color: #a83d6a; /* dark pink */
-  margin-bottom: 20px;
+    color: #cd49ac; /* ✅ FIXED dark pink */
+    margin-bottom: 20px;
 }
 
 #searchBar {
-  padding: 10px;
-  width: 60%;
-  border: 2px solid #a83d6a;
-  border-radius: 10px;
-  margin-bottom: 20px;
+    padding: 10px;
+    width: 60%;
+    border: 2px solid #a5368a; /* ✅ FIXED border width */
+    border-radius: 10px; /* ✅ FIXED radius */
+    margin-bottom: 20px;
 }
 
 #cafeList {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 #cafeList li {
-  background: #fff0f6;
-  margin: 10px auto;
-  padding: 12px;
-  width: 60%;
-  border-radius: 12px;
-  font-size: 18px;
-  color: #333;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: white;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-
-/* Test styling */
-body {
-  background-color: #ffcce7; /* baby pink */
-  font-family: Arial, sans-serif;
-  text-align: center;
-  margin: 20px;
+#map {
+    height: 400px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
-h1 {
-  color: #a83d6a; /* dark pink */
-  margin-bottom: 20px;
+.favorite-btn {
+    cursor: pointer;
+    font-size: 20px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
 }
 
-#searchBar {
-  padding: 10px;
-  width: 60%;
-  border: 2px solid #a83d6a;
-  border-radius: 10px;
-  margin-bottom: 20px;
+.favorite-btn:hover {
+    transform: scale(1.3);
 }
 
-#cafeList {
-  list-style: none;
-  padding: 0;
+.favorite-btn.active {
+    color: #ff4757;
 }
-
-#cafeList li {
-  background: #fff0f6;
-  margin: 10px auto;
-  padding: 12px;
-  width: 60%;
-  border-radius: 12px;
-  font-size: 18px;
-  color: #333;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 

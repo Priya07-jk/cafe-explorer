@@ -58,6 +58,69 @@ nearMeBtn.addEventListener('click', function() {
         }
     );
 });
+// ❤️ FAVORITE CAFES FEATURE (LocalStorage)
+class FavoriteManager {
+    constructor() {
+        this.favorites = JSON.parse(localStorage.getItem('favoriteCafes')) || [];
+        this.init();
+    }
+    
+    init() {
+        this.loadFavorites();
+        this.setupEventListeners();
+    }
+    
+    loadFavorites() {
+        // Update heart icons based on saved favorites
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            const cafeId = btn.getAttribute('data-id');
+            if (this.favorites.includes(cafeId)) {
+                btn.textContent = '❤️';
+                btn.classList.add('active');
+            } else {
+                btn.textContent = '🤍';
+                btn.classList.remove('active');
+            }
+        });
+    }
+    
+    setupEventListeners() {
+        // Click heart to toggle favorite
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('favorite-btn')) {
+                this.toggleFavorite(e.target.getAttribute('data-id'));
+            }
+        });
+    }
+    
+    toggleFavorite(cafeId) {
+        const index = this.favorites.indexOf(cafeId);
+        
+        if (index > -1) {
+            // Remove from favorites
+            this.favorites.splice(index, 1);
+        } else {
+            // Add to favorites
+            this.favorites.push(cafeId);
+        }
+        
+        // Save to localStorage (persists after browser closes)
+        localStorage.setItem('favoriteCafes', JSON.stringify(this.favorites));
+        
+        // Update UI
+        this.loadFavorites();
+        
+        // Show confirmation
+        console.log('Favorites updated:', this.favorites);
+    }
+    
+    getFavorites() {
+        return this.favorites;
+    }
+}
+
+// Initialize favorites when page loads
+const favoriteManager = new FavoriteManager();
 // Initialize Leaflet Map
 function initMap() {
     let map = L.map('map').setView([40.7128, -74.0060], 13);
