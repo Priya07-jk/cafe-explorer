@@ -1,12 +1,11 @@
-<<<<<<< HEAD
-// Cafe Explorer Search Functionality
+ // Cafe Explorer Search Functionality
 const searchBar = document.getElementById('searchBar');
 const cafeList = document.getElementById('cafeList');
 const noResults = document.getElementById('noResults');
+const cafes = cafeList.getElementsByTagName('li');
 
 searchBar.addEventListener('input', function() {
     const searchTerm = this.value.toLowerCase();
-    const cafes = cafeList.getElementsByTagName('li');
     let found = false;
     
     // Check each cafe against search term
@@ -34,18 +33,3 @@ window.addEventListener('load', function() {
     searchBar.value = '';
     noResults.style.display = 'none';
 });
-=======
-// Search functionality
-const searchBar = document.getElementById("searchBar");
-const cafeList = document.getElementById("cafeList");
-const cafes = cafeList.getElementsByTagName("li");
-
-searchBar.addEventListener("keyup", function () {
-  const query = searchBar.value.toLowerCase();
-  for (let cafe of cafes) {
-    let cafeName = cafe.textContent.toLowerCase();
-    cafe.style.display = cafeName.includes(query) ? "" : "none";
-  }
-});
-
->>>>>>> 855e5dd0d164b81c634bc1cb401906d279f7f585
