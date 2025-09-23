@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cafe Explorer</title>
     <link rel="stylesheet" href="cafe-explorer.css">
+    <!-- Leaflet CSS -->
+   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+   <!-- Leaflet JS -->
+   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
 </head>
 <body>
     <h1>Cafe Explorer</h1>
@@ -15,6 +21,8 @@
     
     <!-- Cafe List -->
     <ul id="cafeList">
+      <!-- Map Container -->
+<div id="map" style="height: 400px; width: 100%; margin-top: 20px; border-radius: 10px;"></div>
         <li data-rating="4.5">Brew & Bean - ▲ 4.5</li>
         <li data-rating="4.0">Pink Cup Cafe - ▲ 4.0</li>
         <li data-rating="3.8">Coffee Bloom - ▲ 3.8</li>
