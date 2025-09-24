@@ -26,39 +26,42 @@ searchBar.addEventListener('input', function () {
 });
 
 
-// ===== "NEAR ME" BUTTON =====
-const nearMeBtn = document.getElementById('nearMeBtn');
-let map;
-
-nearMeBtn.addEventListener('click', function () {
-    console.log('Geolocation started...');
+// Replace your existing nearMeBtn event listener with this:
+nearMeBtn.addEventListener('click', function() {
     if (!navigator.geolocation) {
-        alert('Geolocation not supported');
+        alert('Geolocation is not supported by your browser');
         return;
     }
-
+    
+    nearMeBtn.textContent = '📍 Searching for nearby cafes...';
+    nearMeBtn.disabled = true;
+    
     navigator.geolocation.getCurrentPosition(
-        function (position) {
-            const lat = position.coords.latitude;
-            const lng = position.coords.longitude;
-            console.log('Success! Lat:', lat, 'Lng:', lng);
-            alert(`Location found! Lat: ${lat}, Lng: ${lng}`);
-
-            if (map) {
-                map.setView([lat, lng], 15);
-                L.marker([lat, lng])
-                    .addTo(map)
-                    .bindPopup("📍 You are here")
-                    .openPopup();
-            }
+        async (position) => {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            
+            console.log('User location:', userLat, userLng);
+            
+            // Center map on user location
+            map.setView([userLat, userLng], 15);
+            
+            // Find REAL cafes near user
+            await findNearbyCafes(userLat, userLng);
+            
+            nearMeBtn.textContent = '📍 Find Cafes Near Me';
+            nearMeBtn.disabled = false;
         },
-        function (error) {
-            console.log('Error:', error);
-            alert('Location error: ' + error.message);
+        (error) => {
+            alert('Error getting location: ' + error.message);
+            nearMeBtn.textContent = '📍 Find Cafes Near Me';
+            nearMeBtn.disabled = false;
+            
+            // Fallback to sample data
+            initSwipeCards();
         }
     );
 });
-
 
 // ===== FAVORITE CAFES FEATURE (LocalStorage) =====
 class FavoriteManager {
@@ -204,3 +207,123 @@ window.addEventListener('load', () => {
     initMap();
     initSwipeCards();
 });
+// ===== REAL CAFE FINDER WITH OPENSTREETMAP (FREE API) =====
+
+async function findNearbyCafes(lat, lng) {
+    try {
+        console.log('Searching for cafes near:', lat, lng);
+        
+        const response = await fetch(
+            `https://overpass-api.de/api/interpreter?data=[out:json];node[amenity=cafe](around:2000,${lat},${lng});out;`
+        );
+        
+        const data = await response.json();
+        console.log('Found cafes:', data.elements);
+        
+        if (data.elements && data.elements.length > 0) {
+            displayRealCafes(data.elements, lat, lng);
+        } else {
+            // Fallback to sample data if no cafes found
+            console.log('No cafes found, using sample data');
+            initSwipeCards();
+        }
+    } catch (error) {
+        console.error('Error fetching cafes:', error);
+        // Fallback to sample data
+        initSwipeCards();
+    }
+}
+
+function displayRealCafes(cafes, userLat, userLng) {
+    const container = document.getElementById('cafeCards');
+    const oldList = document.getElementById('cafeList');
+    
+    // Hide old list, show cards container
+    if (oldList) oldList.style.display = 'none';
+    container.innerHTML = '';
+    container.style.display = 'block';
+    
+    // Clear existing map markers (keep only base map)
+    map.eachLayer((layer) => {
+        if (layer instanceof L.Marker) {
+            map.removeLayer(layer);
+        }
+    });
+    
+    // Add user location marker
+    L.marker([userLat, userLng]).addTo(map)
+        .bindPopup('<b>📍 You are here!</b>')
+        .openPopup();
+
+    let cafeCount = 0;
+    
+    cafes.forEach((cafe, index) => {
+        // Skip if cafe doesn't have a name
+        if (!cafe.tags || !cafe.tags.name) return;
+        
+        cafeCount++;
+        
+        const card = document.createElement('div');
+        card.className = 'swipe-card';
+        card.style.zIndex = cafes.length - index;
+        
+        // Calculate distance from user
+        const distance = calculateDistance(userLat, userLng, cafe.lat, cafe.lon);
+        
+        // Use different cafe images for variety
+        const cafeImages = [
+            'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop',
+            'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=300&fit=crop',
+            'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=400&h=300&fit=crop',
+            'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&h=300&fit=crop'
+        ];
+        const randomImage = cafeImages[Math.floor(Math.random() * cafeImages.length)];
+        
+        card.innerHTML = `
+            <img src="${randomImage}" alt="${cafe.tags.name}">
+            <h3>${cafe.tags.name}</h3>
+            <p>📍 ${distance.toFixed(1)} km away</p>
+            <p>${cafe.tags.cuisine || cafe.tags.amenity || 'Cafe'}</p>
+            <span class="favorite-btn" data-id="real-${cafe.id}">🤍</span>
+            <p><small>Swipe right to save ❤️</small></p>
+        `;
+
+        // Add cafe marker to map
+        L.marker([cafe.lat, cafe.lon]).addTo(map)
+            .bindPopup(`<b>${cafe.tags.name}</b><br>${cafe.tags.cuisine || ''}`);
+
+        // Swipe functionality
+        const hammer = new Hammer(card);
+        hammer.on('swipeleft', () => {
+            card.classList.add('swipe-left');
+            setTimeout(() => card.remove(), 600);
+        });
+
+        hammer.on('swiperight', () => {
+            card.classList.add('swipe-right');
+            if (window.favoriteManager) {
+                favoriteManager.toggleFavorite("real-" + cafe.id.toString());
+            }
+            setTimeout(() => card.remove(), 600);
+        });
+
+        container.appendChild(card);
+    });
+    
+    if (cafeCount === 0) {
+        container.innerHTML = '<p>No cafes found nearby. Try sample cafes instead.</p>';
+        initSwipeCards();
+    }
+}
+
+// Helper function to calculate distance between two coordinates
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // Earth's radius in km
+    const dLat = (lat2 - lat1) * Math.PI / 180;
+    const dLon = (lon2 - lon1) * Math.PI / 180;
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+        Math.sin(dLon/2) * Math.sin(dLon/2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+}
