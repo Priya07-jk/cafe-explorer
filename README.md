@@ -3,12 +3,16 @@
 A simple web app to explore nearby cafes using Leaflet.js and OpenStreetMap
  
 Built with **HTML, CSS, JavaScript** — no frameworks.
+
 ## Features
-- **Real-time Search** - Instant cafe filtering as you type
-- **Interactive Map** - Leaflet.js with OpenStreetMap tiles  
-- **Geolocation** - "Find cafes near me" button
+- **Real Cafe Data** - Live cafe information from OpenStreetMap API
+- **Smart Geolocation** - Finds actual cafes near your current location  
+- **Interactive Map** - Leaflet.js with real cafe markers and distances
+- **Tinder-like Interface** - Swipe right to save favorites, left to dismiss
+- **Real-time Search** - Instant filtering of nearby cafes
 - **Favorites System** - Heart icons with localStorage persistence
--  Tinder-like swipe interface for cafes
+- **Distance Calculation** - Shows exact km distance to each cafe
+- **Mobile-Friendly** - Touch gestures and responsive design
 - **Clean UI** - Modern design with smooth animations
 
 ##  Tech Stack
